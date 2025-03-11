@@ -1,10 +1,13 @@
+from stats import get_num_words
+import sys
+
+if len(sys.argv) < 2:
+	print("Usage: python3 main.py <path_to_book>")
+	sys.exit(1)
+
 def get_book_text(path):
 	with open(path) as f:
 		return f.read()
-
-def word_count(text):
-	words = text.split()
-	return(len(words))
 
 def char_count(text):
 	lowered_text = text.lower()
@@ -29,9 +32,9 @@ def sort_on(char_dict):
 	
 def main():
 	
-	book_path = "books/frankenstein.txt"
+	book_path = sys.argv[1]
 	text = get_book_text(book_path)
-	num_words = word_count(text)
+	num_words = get_num_words(text)
 	#print(f"{num_words} words")
 	char_counts = char_count(text)
 	char_list = char_counts_to_list(char_counts)
@@ -41,7 +44,8 @@ def main():
 	print(f"{num_words} words found in the document")
 
 	for item in char_list:
-		print(f"The '{item["char"]}' character was found {item["num"]} times")
+		#print(f"The '{item["char"]}' character was found {item["num"]} times")
+		print(f"{item["char"]}: {item["num"]}")
 	print("--- End report ---")
 
 main()
